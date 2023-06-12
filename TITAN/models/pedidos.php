@@ -70,16 +70,17 @@ class PedidoDAO {
             $stmt= $this->db_con->prepare ("Insert into ProdPedido (id_producto, id_pedido) values (:prod, :pedi)");
             $stmt->bindParam(':prod', $id_producto);
             $stmt->bindParam(':pedi', $lastid);
-
+        }
             try{
                 $stmt->execute();
-                echo "Error al realiar pedido";
+            } catch (PDOException $e){
+                echo "ERROR AL REALIZAR EL PEDIDO";
             }
-        }
-        
     }
 
     public function borrarpedi($id){
+        $stmt= $this->db_con->prepare ("Delete from ProdPedido where id_pedido=$id");
+        $stmt->execute();
         $stmt= $this->db_con->prepare ("Delete from Pedido where id_pedido=$id");
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $stmt->execute();

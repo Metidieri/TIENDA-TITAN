@@ -75,7 +75,13 @@ class ProductController {
 
     public function removeCarrito(){
         if (isset($_GET['id_product'])){
-            unset($_SESSION['carrito'][$_GET['id_product']]);
+            echo $_GET['id_product'];
+            echo $_SESSION['carrito'][$_GET['id_product']];
+
+            if (($clave = array_search($_GET['id_product'], $_SESSION['carrito'])) !== false) {
+                unset($_SESSION['carrito'][$clave]);
+            }
+
             var_dump($_SESSION['carrito']);
             include_once 'models/productos.php';
             $pDAO=new ProductoDAO();
