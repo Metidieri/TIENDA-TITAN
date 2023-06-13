@@ -59,6 +59,8 @@ class ControllerUsu{
                 $pDAO=new UsuarioDAO();
                 if ($pDAO->insertUsuario($_POST['nick'], $_POST['contra'])){
                     $_SESSION['usuario']=$_POST['nick'];
+                    $id_usuario=$pDAO->getAllUsers($_POST['nick'],$_POST['contra']);
+                    $_SESSION['id_usuario']=$id_usuario;
                     header('Location: index.php');
                 } else {
                     $errores['general']="Problemas al insertar";
